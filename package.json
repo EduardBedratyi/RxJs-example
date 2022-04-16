@@ -1,5 +1,5 @@
 {
-  "name": "Appointment",
+  "name": "appointment",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -15,5 +15,8 @@
     "webpack": "^4.39.2",
     "webpack-cli": "^3.3.7",
     "webpack-dev-server": "^3.8.0"
+  },
+  "dependencies": {
+    "rxjs": "^7.5.5"
   }
 }
