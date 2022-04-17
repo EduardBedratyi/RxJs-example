@@ -28,7 +28,7 @@ const stream$ = new Observable((observer) => {
 // to handele results there ara two ways
 
 // 1. By passing into subscribe 3 callbacks (structure as try catch final)
-stream$.subscribe(
+/* stream$.subscribe(
   // next method
   (val) => console.log("ObservableVal: ", val),
   // error metod
@@ -36,4 +36,17 @@ stream$.subscribe(
   // this "complete" callback does not call inside Observable if stream has an error
   // that`s why we place it before the error (see above)
   () => console.log("stream is completed")
-);
+);*/
+
+// 2. By passing into subscribe object with three keys
+stream$.subscribe({
+  next(val) {
+    console.log("value: ", val);
+  },
+  error(err) {
+    console.log(err);
+  },
+  complete() {
+    console.log("current stream is completed");
+  },
+});
