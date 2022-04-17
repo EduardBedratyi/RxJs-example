@@ -61,6 +61,14 @@ fromEvent(document.querySelector("canvas"), "mousemove")
       ctx: e.target.getContext("2d"),
     }))
   )
-  .subscribe((event) => {
-    console.log("event: ", event);
+  .subscribe((pos) => {
+    pos.ctx.fillRect(pos.x, pos.y, 2, 2);
   });
+
+const clear$ = fromEvent(document.getElementById("clear"), "click");
+
+clear$.subscribe(() => {
+  const canvas = document.querySelector("canvas");
+
+  canvas.getContext("2d").clearRect(0, 0, canvas.width, canvas.height);
+});
