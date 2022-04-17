@@ -1,6 +1,7 @@
-import { of, from, scan, Observable } from "rxjs";
+import { of, from, Observable, fromEvent } from "rxjs";
+import { scan, map } from "rxjs/operators";
 
-// method "of" allows create streams from any data
+// method "of" allows create "stream" from any data
 /* const stream$ = of(1, 2, 3, 4);
 
 stream$.subscribe((val) => {
@@ -39,7 +40,7 @@ const stream$ = new Observable((observer) => {
 );*/
 
 // 2. By passing into subscribe object with three keys
-stream$.subscribe({
+/*stream$.subscribe({
   next(val) {
     console.log("value: ", val);
   },
@@ -49,4 +50,17 @@ stream$.subscribe({
   complete() {
     console.log("current stream is completed");
   },
-});
+});*/
+
+// creating "stream" by Events
+fromEvent(document.querySelector("canvas"), "mousemove")
+  .pipe(
+    map((e) => ({
+      x: e.offsetX,
+      y: e.offsetY,
+      ctx: e.target.getContext("2d"),
+    }))
+  )
+  .subscribe((event) => {
+    console.log("event: ", event);
+  });
