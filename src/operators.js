@@ -1,5 +1,5 @@
 import { interval } from "rxjs";
-import { map, filter, tap, take, takeLast } from "rxjs/operators";
+import { map, filter, tap, take, takeLast, takeWhile } from "rxjs/operators";
 
 const stream$ = interval(1000).pipe(
   // "tap" operator use to call some side effects
@@ -7,9 +7,10 @@ const stream$ = interval(1000).pipe(
   // map((v) => v * 3),
   // filter((v) => v % 2 === 0),
   // "take" operator allows define quantity of elements
-  take(5),
+  // take(5),
   // without takeLast the process of taking "tap" will continue infinitely
-  takeLast(2)
+  // takeLast(2)
+  takeWhile((v) => v < 3)
 );
 
 stream$.subscribe({
@@ -19,10 +20,10 @@ stream$.subscribe({
 
 // console.log("Tap v: ", v)
 // Tap v:  0
+// Next value:  0
 // Tap v:  1
+// Next value:  1
 // Tap v:  2
+// Next value:  2
 // Tap v:  3
-// Tap v:  4
-//  Next value:  3
-//  Next value:  4
-//  Complete
+// Complete
