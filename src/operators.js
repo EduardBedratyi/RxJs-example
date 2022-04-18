@@ -1,4 +1,4 @@
-import { interval } from "rxjs";
+import { interval, fromEvent } from "rxjs";
 import {
   map,
   filter,
@@ -10,23 +10,17 @@ import {
   reduce,
 } from "rxjs/operators";
 
-const stream$ = interval(1000).pipe(
-  // "tap" operator use to call some side effects
-  tap((v) => console.log("Tap v: ", v)),
-  // map((v) => v * 3),
-  // filter((v) => v % 2 === 0),
-  // "take" operator allows define quantity of elements
-  take(5),
-  // without takeLast the process of taking "tap" will continue infinitely
-  // takeLast(2)
-  // takeWhile((v) => v < 3)
-  // scan((acc, v) => acc + v, 0)
-  reduce((acc, v) => acc + v, 0)
-);
+fromEvent(document, "click").subscribe(() => {
+  const stream$ = interval(1000).pipe(
+    tap((v) => console.log("Tap v: ", v)),
+    take(5),
+    reduce((acc, v) => acc + v, 0)
+  );
 
-stream$.subscribe({
-  next: (v) => console.log("Next value: ", v),
-  complete: () => console.log("Complete"),
+  stream$.subscribe({
+    next: (v) => console.log("Next: ", v),
+    complete: () => console.log("Complete"),
+  });
 });
 
 // console.log("Tap v: ", v)
